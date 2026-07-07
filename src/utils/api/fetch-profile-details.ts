@@ -1,24 +1,21 @@
-import { ProfileDetailsResponse, ProfileListType } from '../../types/profile'
-import { EFP_API_URL } from '../../constants'
+import { ProfileDetailsResponse } from '../../types/profile'
+import { resolveEnsProfile } from './resolve-ens-profile'
 
-export const fetchProfileDetails = async (addressOrName: string, list?: ProfileListType, fresh?: boolean) => {
-  try {
-    const url = `${EFP_API_URL}/${list === undefined ? 'users' : 'lists'}/${
-      list ?? addressOrName
-    }/details${fresh ? '?cache=fresh' : ''}`
+/**
+ * Fetches the ENS identity profile for an address or name using client-side
+ * ENS resolution (viem). Replaces the previous Ethereum Follow Protocol API.
+ */
+export const fetchProfileDetails = async (addressOrName: string): Promise<ProfileDetailsResponse | null> => {
+  const resolved = await resolveEnsProfile(addressOrName)
+  if (!resolved) return null
 
-    const response = await fetch(url, {
-      cache: 'default',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-    })
-
-    const data = (await response.json()) as ProfileDetailsResponse
-    return data
-  } catch (err: unknown) {
-    console.error(err)
-    return null
+  return {
+    address: resolved.address,
+    ens: {
+      name: resolved.name ?? undefined,
+      avatar: resolved.avatar ?? undefined,
+      header: resolved.header ?? undefined,
+      records: resolved.records,
+    },
   }
 }

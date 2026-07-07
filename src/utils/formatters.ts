@@ -1,5 +1,4 @@
 import { GrailsNameMetadataResponse } from '../types'
-import { TranslationFunction } from '../types/translations'
 
 /**
  * Formats a number using the user's locale
@@ -11,21 +10,6 @@ import { TranslationFunction } from '../types/translations'
 export const formatNumber = (number: number): string => {
   const locale = typeof navigator !== 'undefined' ? navigator.language : 'en-US'
   return new Intl.NumberFormat(locale).format(number)
-}
-
-/**
- * Formats the text shown in the common followers component next to the avatars
- * @param resultLength - Number of common followers
- * @param t - Translation function
- * @returns Formatted text string
- */
-export const formatFollowersYouKnowText = (resultLength: number, t: TranslationFunction): string => {
-  if (resultLength === 0) return t('followersYouKnow.noCommon')
-  if (resultLength === 1) return t('followersYouKnow.followsThem')
-
-  if (resultLength === 2) return t('followersYouKnow.oneOtherFollows')
-  if (resultLength === 3) return t('followersYouKnow.othersFollow')
-  return `${resultLength - 2} ${t('followersYouKnow.othersFollow')}`
 }
 
 /**

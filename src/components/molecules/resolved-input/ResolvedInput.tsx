@@ -2,7 +2,7 @@ import { useId } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { isAddress } from 'viem'
 import { ResolvedInputProps } from './ResolvedInput.types'
-import { beautifyEnsName, fetchAccount } from '../../../utils'
+import { beautifyEnsName, fetchAccount, truncateAddress } from '../../../utils'
 import LoadingCell from '../../atoms/loading-cell/LoadingCell'
 import Avatar from '../avatar/Avatar'
 import './ResolvedInput.css'
@@ -38,7 +38,9 @@ const ResolvedInput: React.FC<ResolvedInputProps> = ({
   const resolvedProfile = resolvedAccount?.ens || { name: null, avatar: null }
   const displayedValue =
     accountLookupTarget && isAddress(accountLookupTarget)
-      ? beautifyEnsName(resolvedProfile?.name ?? '')
+      ? resolvedProfile?.name
+        ? beautifyEnsName(resolvedProfile.name)
+        : truncateAddress(resolvedAccount?.address ?? accountLookupTarget)
       : resolvedAccount?.address
 
   return (

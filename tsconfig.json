@@ -16,6 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "global.d.ts", "examples", ".storybook"],
+  "include": ["src", "global.d.ts", ".storybook"],
   "exclude": ["node_modules"]
 }

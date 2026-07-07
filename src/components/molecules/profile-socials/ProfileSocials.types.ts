@@ -1,5 +1,5 @@
 import { Address } from '../../../types'
-import type { ProfileDetailsResponse, ProfileEFPSocialType } from '../../../types/profile'
+import type { ProfileDetailsResponse, ProfileSocialType } from '../../../types/profile'
 
 export interface ProfileSocialsProps {
   name?: string
@@ -11,5 +11,5 @@ export interface ProfileSocialsProps {
   isLoading?: boolean
   darkMode?: boolean
   style?: React.CSSProperties
-  hideSocials?: ProfileEFPSocialType[]
+  hideSocials?: ProfileSocialType[]
 }

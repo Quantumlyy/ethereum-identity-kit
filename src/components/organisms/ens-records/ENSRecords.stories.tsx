@@ -4,8 +4,6 @@ import { mainnet, base, optimism } from 'wagmi/chains'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useAccount, useConnect, useDisconnect, WagmiProvider } from 'wagmi'
 import { injected, metaMask, coinbaseWallet, walletConnect } from 'wagmi/connectors'
-import { TransactionProvider } from '../../../context/transactionContext'
-import TransactionModal from '../transaction-modal/TransactionModal'
 import { transports } from '../../../constants/transports'
 import { ENSRecordsProps } from './ENSRecords.types'
 import ENSRecords from './ENSRecords'
@@ -170,7 +168,7 @@ const ENSRecordsWrapper = (args: ENSRecordsProps & { isModal?: boolean }) => {
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
             <p style={{ fontSize: '16px', fontWeight: 'bold', padding: '0', margin: '0' }}>
-              Connect to a wallet to follow
+              Connect to a wallet to sign in
             </p>
             {connectors.map((connector) => (
               <button
@@ -222,12 +220,6 @@ export default {
   title: 'Organisms/ENS Records',
   component: ENSRecordsWrapper,
   tags: ['!autodocs'],
-  // args: {
-  //   customClassNames: Object.keys(FOLLOW_BUTTON_STYLES).reduce((acc, key) => {
-  //     acc[key] = FOLLOW_BUTTON_STYLES[key]
-  //     return acc
-  //   }, {}),
-  // },
   argTypes: {
     defaultTab: {
       control: 'select',
@@ -237,19 +229,7 @@ export default {
   decorators: [
     (Story) => (
       <WagmiProvider config={config}>
-        <QueryClientProvider client={queryClient}>
-          <TransactionProvider
-            batchTransactions={Story().props.batchTransactions}
-            paymasterService={Story().props.paymasterService}
-            defaultChainId={Story().props.defaultChainId}
-          >
-            <TransactionModal
-              darkMode={Story().props.darkMode}
-              showRecommendations={Story().props.showRecommendations}
-            />
-            {Story()}
-          </TransactionProvider>
-        </QueryClientProvider>
+        <QueryClientProvider client={queryClient}>{Story()}</QueryClientProvider>
       </WagmiProvider>
     ),
   ],

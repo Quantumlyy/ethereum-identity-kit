@@ -42,31 +42,10 @@ jest.mock(
     }
 )
 jest.mock(
-  '../../molecules/follower-tag/FollowerTag',
-  () =>
-    function MockFollowerTag() {
-      return <div data-testid="follower-tag" />
-    }
-)
-jest.mock(
   '../../atoms/loading-cell/LoadingCell',
   () =>
     function MockLoadingCell() {
       return <div data-testid="loading-cell" />
-    }
-)
-jest.mock(
-  '../../molecules/profile-stats/ProfileStats',
-  () =>
-    function MockProfileStats() {
-      return <div data-testid="profile-stats" />
-    }
-)
-jest.mock(
-  '../follow-button/FollowButton',
-  () =>
-    function MockFollowButton() {
-      return <div data-testid="follow-button" />
     }
 )
 jest.mock(
@@ -84,11 +63,6 @@ jest.mock('../../../hooks', () => ({
     ens: { name: 'vitalik.eth' },
     address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
     detailsLoading: false,
-  }),
-  useProfileStats: jest.fn().mockReturnValue({
-    followers: 100,
-    following: 50,
-    statsLoading: false,
   }),
   useGrailsProfile: jest.fn(),
 }))

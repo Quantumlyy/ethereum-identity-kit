@@ -90,7 +90,7 @@ const SignInWithEthereumWrapper = (
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
             <p style={{ fontSize: '16px', fontWeight: 'bold', padding: '0', margin: '0' }}>
-              Connect to a wallet to follow
+              Connect to a wallet to sign in
             </p>
             {connectors.map((connector) => (
               <button

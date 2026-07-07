@@ -5,26 +5,19 @@ import { beautifyEnsName, truncateAddress, validateEnsHeader } from '../../../ut
 import { ENS } from '../../icons'
 import Avatar from '../../molecules/avatar/Avatar'
 import Loading from './components/loading'
-import EFPPoaps from '../../molecules/efp-poaps/EFPPoaps'
 import Bio from '../profile-card/components/bio'
 import MoreOptions from './components/more-options'
-import FollowerTag from '../../molecules/follower-tag/FollowerTag'
 import ProfileCard from '../profile-card/ProfileCard'
-import ProfileStats from '../../molecules/profile-stats/ProfileStats'
 import ProfileSocials from '../../molecules/profile-socials/ProfileSocials'
-import FollowersYouKnow from '../../molecules/followers-you-know/FollowersYouKnow'
 import ImageWithFallback from '../../atoms/image-with-fallback/ImageWithFallback'
 import { DEFAULT_FALLBACK_HEADER } from '../../../constants'
 import { FullWidthProfileProps } from './FullWidthProfile.types'
-import FollowButton from '../follow-button/FollowButton'
 import './FullWidthProfile.css'
 
 /**
- * Full Width Profile for any Ethereum Profile. Includes ENS and EFP profile data to be displayed in any Web3 app.
+ * Full Width Profile for any Ethereum Profile. Displays ENS identity data in any Web3 app.
  *
  * @param addressOrName - Ethereum Address or ENS name to fetch profile data for (required)
- *
- * @param list - Search profile data by list number - will override addressOrName if provided (used in EFP app) (optional)
  *
  * @param connectedAddress - Address of the user connected to the app (optional)
  *
@@ -32,78 +25,54 @@ import './FullWidthProfile.css'
  *
  * @param role - can be used to add any additional information to the profile (used to display roles on https://ethid.org) (optional)
  *
- * @param showFollowerState - shows follower state tag (follows you, blocks you, mutes you) (optional)
- *
- * @param onStatClick - action to be performed when a stat (following, followers) is clicked - default goes to EFP profile with selected stat (optional)
- *
- * @param selectedList - list number selected in you application for the connected user (optional)
- *
  * @param onProfileClick - action to be performed when the profile is clicked (optional)
- *
- * @param showPoaps - shows EFP related poaps on the profile (optional)
  *
  * @param alignProfileContent - can be used to align the profile content when max-width is surpassed (center, start, end) (optional)
  *
- * @param extraOptions - see ProfileCardOption type for all options (optional)
+ * @param extraOptions - see ProfileExtraOptions type for all options (optional)
  *
  * @param className - string (optional)
  *
  * @param style - CSS Properties (optional)
- *
- * @param props - HTML div element props (optional)
  *
  * @returns ProfileCard component
  */
 const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
   addressOrName,
   connectedAddress,
-  list,
   darkMode,
   className,
   extraOptions,
-  showFollowerState,
-  showFollowButton,
   showEmptySocials,
-  onStatClick,
-  selectedList,
   onProfileClick,
-  showPoaps = true,
   style,
   alignProfileContent = 'center',
 }) => {
-  const { role, nameMenu, prefetched, openListSettings, customFollowButton, onEditProfileClick, onBioLinkClick } =
-    extraOptions || {}
+  const { role, nameMenu, prefetched, onEditProfileClick, onBioLinkClick } = extraOptions || {}
 
-  const { profile, stats } = prefetched || {}
+  const { profile } = prefetched || {}
 
   const { t } = useTranslation()
 
-  const { ens, address, primaryList, detailsLoading, refreshProfileDetails } = useProfileDetails({
+  const { ens, address, detailsLoading, refreshProfileDetails } = useProfileDetails({
     addressOrName,
-    list,
     prefetchedData: profile?.data,
     refetchPrefetchedData: profile?.refetch,
   })
   const isDetailsLoading = profile?.isLoading || detailsLoading
 
   const isConnectedUserCard = connectedAddress && address && address?.toLowerCase() === connectedAddress?.toLowerCase()
-  const showFollowerTag = showFollowerState && connectedAddress && address && !isConnectedUserCard
 
   return (
     <>
       <div className="user-profile-card-container">
         <ProfileCard
           addressOrName={addressOrName}
-          list={list}
           connectedAddress={connectedAddress}
           darkMode={darkMode}
-          showFollowButton={showFollowButton}
-          showFollowerState={showFollowerState}
           onProfileClick={onProfileClick}
-          onStatClick={onStatClick}
           showEmptySocials={showEmptySocials}
           extraOptions={extraOptions}
-          showPoaps={showPoaps}
           style={{
             width: '100%',
             borderRadius: '0px',
@@ -141,13 +110,9 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
               </div>
               {role && <p className="user-profile-role">{role}</p>}
               <MoreOptions
-                profileList={list ?? Number(primaryList)}
-                primaryList={primaryList}
                 nameMenu={nameMenu}
-                openListSettingsModal={openListSettings}
                 refetchData={() => {
                   refreshProfileDetails()
-                  stats?.refetch?.()
                 }}
               />
               <div
@@ -159,14 +124,6 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                 {ens?.records?.status && (
                   <p className="user-profile-status-desktop">&quot;{ens.records.status}&quot;</p>
                 )}
-                {showPoaps && (
-                  <EFPPoaps
-                    addressOrName={address}
-                    isLoading={detailsLoading}
-                    hideEFPPoaps={extraOptions?.hideEFPPoaps}
-                    customPoaps={extraOptions?.customPoaps}
-                  />
-                )}
               </div>
               <div className="user-profile-content">
                 <div onClick={() => onProfileClick?.(address)} className="user-profile-avatar-container">
@@ -174,13 +131,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                 </div>
                 <div className="user-profile-details">
                   <div className="user-profile-name-container">
-                    <p
-                      className={clsx(
-                        'user-profile-name',
-                        isConnectedUserCard || (!!customFollowButton && 'user-profile-name-connected')
-                      )}
-                      onClick={() => onProfileClick?.(address)}
-                    >
+                    <p className="user-profile-name" onClick={() => onProfileClick?.(address)}>
                       {ens?.name ? beautifyEnsName(ens?.name) : truncateAddress(address)}
                     </p>
                     {isConnectedUserCard ? (
@@ -200,44 +151,7 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                           <p>{t('profile.editProfile')}</p>
                         </button>
                       </a>
-                    ) : showFollowButton ? (
-                      customFollowButton || <FollowButton lookupAddress={address} connectedAddress={connectedAddress} />
                     ) : null}
-                    {showFollowerTag && (
-                      <FollowerTag
-                        connectedAddress={connectedAddress}
-                        lookupAddressOrName={address}
-                        list={selectedList}
-                      />
-                    )}
-                  </div>
-                  <div className="user-profile-stats-container">
-                    <ProfileStats
-                      addressOrName={address}
-                      list={list === Number(primaryList) ? undefined : list}
-                      prefetched={{
-                        stats: stats?.data,
-                        isLoading: stats?.isLoading || false,
-                      }}
-                      containerDirection="row"
-                      statsDirection="row"
-                      fontSize="lg"
-                      onStatClick={onStatClick}
-                    />
-                    <div className="user-profile-desktop-common-followers-container">
-                      {connectedAddress && !isConnectedUserCard && (
-                        <div className="user-profile-common-followers-container">
-                          <FollowersYouKnow
-                            connectedAddress={connectedAddress}
-                            lookupAddressOrName={address}
-                            onProfileClick={onProfileClick}
-                            hasModal={true}
-                            showEmpty={false}
-                            selectedList={selectedList}
-                          />
-                        </div>
-                      )}
-                    </div>
                   </div>
                   {ens?.records?.status && (
                     <p className="user-profile-status-mobile">&quot;{ens.records.status}&quot;</p>
@@ -259,27 +173,10 @@ const FullWidthProfile: React.FC<FullWidthProfileProps> = ({
                     showEmptySocials={showEmptySocials}
                     hideSocials={extraOptions?.hideSocials}
                   />
-                  <div className="user-profile-mobile-common-followers-container">
-                    {connectedAddress && !isConnectedUserCard && (
-                      <div className="user-profile-common-followers-container">
-                        <FollowersYouKnow
-                          lookupAddressOrName={address}
-                          connectedAddress={connectedAddress}
-                          onProfileClick={onProfileClick}
-                          hasModal={true}
-                          showEmpty={false}
-                          selectedList={selectedList}
-                        />
-                      </div>
-                    )}
-                  </div>
                 </div>
               </div>
             </div>
-            <div
-              className="user-profile-header-container-ultra-wide"
-              // style={{ height: isClient ? document.getElementById('user-profile')?.clientHeight : 420 }}
-            >
+            <div className="user-profile-header-container-ultra-wide">
               <ImageWithFallback
                 src={validateEnsHeader(ens?.records?.header, ens?.name)}
                 fallback={DEFAULT_FALLBACK_HEADER}
