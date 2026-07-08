@@ -1,48 +1,23 @@
 import { useSiwe } from './useSiwe'
 import { useChain } from './useChain'
-import { useUserInfo } from './useUserInfo'
-import { useEFPPoaps } from './useEFPPoaps'
 import { useIsClient } from './common/useIsClient'
-import { useRecommended } from './useRecommended'
 import { useCoolMode } from './common/useCoolMode'
-import { useNotifications } from './useNotifications'
-import { useFollowerState } from './useFollowerState'
 import { useWindowSize } from './common/useWindowSize'
-import { useFollowingState } from './useFollowingState'
-import { useTooltipPosition } from './useTooltipPosition'
-import { useTransactionItem } from './useTransactionItem'
-import { useProfileStats } from './profile/useProfileStats'
 import { useOutsideClick } from './common/useOutsideClick'
+import { useTooltipPosition } from './useTooltipPosition'
 import { useProfileDetails } from './profile/useProfileDetails'
 import { useGrailsProfile } from './profile/useGrailsProfile'
-import { useFollowersAndFollowing } from './useFollowersAndFollowing'
-import { useFollowersYouKnowModal } from './followers-you-know/useModal'
-import { useFollowButton, UseFollowButtonParams } from './useFollowButton'
-import { useFollowersYouKnow } from './followers-you-know/useFollowersYouKnow'
 
 export {
   useSiwe,
-  useUserInfo,
-  useFollowingState,
+  useChain,
+  useIsClient,
+  useCoolMode,
+  useWindowSize,
+  useOutsideClick,
+  useTooltipPosition,
   useProfileDetails,
   useGrailsProfile,
-  useProfileStats,
-  useFollowerState,
-  useFollowButton,
-  useChain,
-  useTransactionItem,
-  useCoolMode,
-  useRecommended,
-  useFollowersYouKnow,
-  useOutsideClick,
-  useEFPPoaps,
-  useIsClient,
-  useFollowersYouKnowModal,
-  useWindowSize,
-  useNotifications,
-  useFollowersAndFollowing,
-  useTooltipPosition,
 }
 
-export type { UseFollowButtonParams }
 export type { TooltipPlacement, FlipBehavior, Boundary } from './useTooltipPosition'

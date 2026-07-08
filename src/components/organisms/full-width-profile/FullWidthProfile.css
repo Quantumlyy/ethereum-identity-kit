@@ -190,11 +190,6 @@
   }
 }
 
-.user-profile-common-followers-container {
-  max-width: 400px;
-  z-index: 20;
-}
-
 .user-profile-avatar-container:hover {
   cursor: pointer;
   transform: scale(1.05);
@@ -265,26 +260,6 @@
   background-color: #07a9f5;
 }
 
-.user-profile-stats-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
-  gap: 32px;
-  padding: 0;
-  margin: 0;
-}
-
-.user-profile-desktop-common-followers-container {
-  display: flex;
-  padding: 0;
-  margin: 0;
-}
-
-.user-profile-mobile-common-followers-container {
-  display: none;
-}
-
 .user-profile-bio-container {
   max-width: 50%;
   font-size: 20px;
@@ -323,14 +298,6 @@
   }
 
   .user-profile-status-mobile {
-    display: flex;
-  }
-
-  .user-profile-desktop-common-followers-container {
-    display: none;
-  }
-
-  .user-profile-mobile-common-followers-container {
     display: flex;
   }
 
@@ -455,14 +422,4 @@
 .more-options-refresh-button:hover {
   cursor: pointer;
   transform: scale(1.1);
-}
-
-.profile-stats-label {
-  font-size: 18px;
-  font-weight: 600;
-  color: #666;
-}
-
-.dark .profile-stats-label {
-  color: #ddd !important;
 }

@@ -107,16 +107,6 @@
   margin: 0;
 }
 
-.common-followers-container {
-  width: 100%;
-  margin: 0 auto;
-  z-index: 20;
-}
-
-.dark .common-followers-text-container {
-  color: var(--ethereum-identity-kit-text-neutral-dark);
-}
-
 .user-profile-edit-profile-button-container {
   text-decoration: none;
 }

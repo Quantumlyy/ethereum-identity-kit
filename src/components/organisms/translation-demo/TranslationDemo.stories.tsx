@@ -5,23 +5,17 @@ import { TranslationKey } from '../../../types/translations'
 const TranslationDemo = () => {
   const { t, activeLanguage, availableLanguages } = useTranslation()
 
-  // Complete list of all translation keys (66 total) - updated with latest keys
+  // Complete list of all translation keys
   const translationKeys: TranslationKey[] = [
     'signInWithEthereum',
     'signingMessage',
+    'singingIn',
+    'signIn',
     'connect',
     'disconnect',
-    'follow',
-    'unfollow',
-    'following',
-    'followers',
     'loading',
     'error',
     'success',
-    'mute',
-    'unmute',
-    'block',
-    'unblock',
     'save',
     'cancel',
     'confirm',
@@ -29,90 +23,27 @@ const TranslationDemo = () => {
     'viewAll',
     'noData',
     'retry',
-    'followers',
-    'following',
-    'lists',
-    'blocked',
-    'muted',
-    'notifications.empty',
-    'notifications.error',
-    'notifications.follow',
-    'notifications.unfollow',
-    'notifications.tag',
-    'notifications.untag',
-    'notifications.block',
-    'notifications.unblock',
-    'notifications.mute',
-    'notifications.unmute',
-    'and',
-    'others',
-    'other',
-    'search placeholder',
-    'no tags',
-    'followersYouKnow.title',
-    'followersYouKnow.viewAll',
-    'followersYouKnow.noCommon',
-    'followersYouKnow.followThem',
-    'followersYouKnow.oneOtherFollows',
-    'followersYouKnow.othersFollow',
-    'followersYouKnow.and',
-    'transaction.pending',
-    'transaction.initiate',
-    'transaction.switchChain',
-    'transaction.indexing',
-    'transaction.finish',
-    'transaction.reInitiate',
-    'transaction.next',
-    'followerState.blocksYou',
-    'followerState.mutesYou',
-    'followerState.followsYou',
-    'modal.cancelTransactions.title',
-    'modal.cancelTransactions.description',
-    'modal.cancelTransactions.confirm',
-    'cart.clearCart',
-    'cart.clearCart.description',
-    'cart.clearCart',
     'goBack',
-    'notifications.title',
+    'backToTop',
+    'search placeholder',
     'profile.editProfile',
-    'recommended.empty',
+    'profile.noUser',
+    'profile.noBio',
+    'profile.showMore',
+    'profile.showLess',
   ]
 
   // Group keys by category for better organization
   const keyCategories = {
     'Authentication & Connection': translationKeys.filter((key) =>
-      ['signInWithEthereum', 'signingMessage', 'connect', 'disconnect'].includes(key)
+      ['signInWithEthereum', 'signingMessage', 'singingIn', 'signIn', 'connect', 'disconnect'].includes(key)
     ),
     'User Actions': translationKeys.filter((key) =>
-      [
-        'follow',
-        'unfollow',
-        'following',
-        'mute',
-        'unmute',
-        'block',
-        'unblock',
-        'save',
-        'cancel',
-        'confirm',
-        'close',
-        'viewAll',
-        'retry',
-        'goBack',
-      ].includes(key)
+      ['save', 'cancel', 'confirm', 'close', 'viewAll', 'retry', 'goBack', 'backToTop'].includes(key)
     ),
     'System States': translationKeys.filter((key) => ['loading', 'error', 'success', 'noData'].includes(key)),
-    'Profile Statistics': translationKeys.filter((key) => key.startsWith('profile.stats')),
-    Notifications: translationKeys.filter(
-      (key) => key.startsWith('notifications') && !key.startsWith('notifications.')
-    ),
-    'Notification Actions': translationKeys.filter((key) => key.startsWith('notifications.')),
-    'Table Headers': translationKeys.filter((key) => key.startsWith('tableHeaders')),
-    'Followers You Know': translationKeys.filter((key) => key.startsWith('followersYouKnow')),
-    'Transaction States': translationKeys.filter((key) => key.startsWith('transaction')),
-    'Follower States': translationKeys.filter((key) => key.startsWith('followerState')),
-    'Modal Dialogs': translationKeys.filter((key) => key.startsWith('modal')),
-    Other: translationKeys.filter((key) => ['followers', 'profile.editProfile', 'recommended.empty'].includes(key)),
+    Profile: translationKeys.filter((key) => key.startsWith('profile.')),
+    Other: translationKeys.filter((key) => ['search placeholder'].includes(key)),
   }
 
   return (
@@ -376,17 +307,10 @@ The system is designed for ease of use, with clear APIs and comprehensive toolin
 ## 📚 Categories
 
 1. **Authentication & Connection** - Sign-in and wallet connection
-2. **User Actions** - Follow, block, mute, and other user interactions  
+2. **User Actions** - Save, cancel, confirm, and other UI actions
 3. **System States** - Loading, error, and success states
-4. **Profile Statistics** - User profile metrics and counts
-5. **Notifications** - General notification messages
-6. **Notification Actions** - Specific notification action text
-7. **Table Headers** - Search and filter interface elements
-8. **Followers You Know** - Social connection features
-9. **Transaction States** - Blockchain transaction status
-10. **Follower States** - User relationship indicators
-11. **Modal Dialogs** - Confirmation and dialog messages
-12. **Other** - Miscellaneous translations
+4. **Profile** - Profile display text
+5. **Other** - Miscellaneous translations
 
 ## 💻 Usage Example
 
@@ -398,7 +322,7 @@ function MyComponent() {
   
   return (
     <div>
-      <button>{t('follow')}</button>
+      <button>{t('signIn')}</button>
       <p>Current language: {activeLanguage}</p>
     </div>
   )

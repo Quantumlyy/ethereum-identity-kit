@@ -25,7 +25,7 @@ export const useCoolMode = (imageUrl?: string, isLoading?: boolean, disabled?: b
 const getContainer = () => {
   if (typeof document === 'undefined') return null
 
-  const id = 'efp_coolMode'
+  const id = 'eik_coolMode'
   const existingContainer = document.getElementById(id)
 
   if (existingContainer) {

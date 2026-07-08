@@ -31,49 +31,12 @@ const Loading = ({ darkMode, style }: { darkMode?: boolean; style?: React.CSSPro
             backgroundColor: 'transparent',
           }}
         >
-          <LoadingCell height="28px" width="56px" radius="4px" />
           <LoadingCell height="28px" width="28px" radius="4px" />
-          <LoadingCell height="28px" width="28px" radius="4px" />
-        </div>
-        <div
-          className="user-profile-status-container"
-          style={{
-            bottom: `${(typeof style?.paddingBottom === 'string' ? Number(style.paddingBottom.slice(0, -2)) : Number(style?.paddingBottom || 0)) + 24}px`,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: '8px',
-          }}
-        >
-          <LoadingCell height="72px" width="72px" radius="50%" />
-          <LoadingCell height="72px" width="72px" radius="50%" />
         </div>
         <div className="user-profile-content" style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
           <LoadingCell height="100px" width="100px" radius="50%" className="user-profile-avatar-container" />
           <div className="user-profile-details">
             <LoadingCell height="40px" width="320px" className="h-10 w-80 rounded-sm 2xl:h-12 2xl:w-96" />
-            <div className="user-profile-stats-container">
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                }}
-              >
-                <LoadingCell height="26px" width="56px" radius="4px" />
-                <p className="profile-stats-label">Following</p>
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                }}
-              >
-                <LoadingCell height="26px" width="56px" radius="4px" />
-                <p className="profile-stats-label">Followers</p>
-              </div>
-            </div>
             <div
               style={{
                 display: 'flex',

@@ -29,12 +29,11 @@ npm install ethereum-identity-kit @tanstack/react-query
 
 ### Setup
 
-Library uses [Tanstack Query](https://tanstack.com/query) for data fetching, [Wagmi](https://wagmi.sh/) for wallet connection and handling onchain transactions, and a [Transaction provider](https://ethidentitykit.com/docs/transaction-provider) so you need to setup a query client and provider, [Wagmi provider](https://wagmi.sh/react/api/WagmiProvider) with your [Wagmi config](https://wagmi.sh/react/api/createConfig), and add Transaction Provider to your app.
+Library uses [Tanstack Query](https://tanstack.com/query) for data fetching and [Wagmi](https://wagmi.sh/) for wallet connection and onchain writes (e.g. editing ENS records), so you need to set up a query client and a [Wagmi provider](https://wagmi.sh/react/api/WagmiProvider) with your [Wagmi config](https://wagmi.sh/react/api/createConfig).
 
 ```tsx copy
 import { WagmiProvider } from 'wagmi'
 import { wagmiConfig } from '#/lib/wagmi'
-import { TransactionProvider } from 'ethereum-identity-kit'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const queryClient = new QueryClient()
@@ -43,9 +42,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <WagmiProvider config={wagmiConfig}>
-        <TransactionProvider>
-          <Component {...pageProps} />
-        </TransactionProvider>
+        <Component {...pageProps} />
       </WagmiProvider>
     </QueryClientProvider>
   )

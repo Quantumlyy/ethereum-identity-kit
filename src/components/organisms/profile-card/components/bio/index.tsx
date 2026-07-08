@@ -44,7 +44,7 @@ const Bio: React.FC<BioProps> = ({
               word.includes('@') && word.includes('.') ? (
                 <a
                   key={word}
-                  href={`https://efp.app/${word[word.length - 1] === ',' ? word.slice(0, -1).replace('@', '') : word.replace('@', '')}`}
+                  href={`https://app.ens.domains/${word[word.length - 1] === ',' ? word.slice(0, -1).replace('@', '') : word.replace('@', '')}`}
                   className="profile-bio-link"
                   onClick={(e) => {
                     if (onBioLinkClick) {

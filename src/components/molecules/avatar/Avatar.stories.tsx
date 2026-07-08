@@ -1,5 +1,6 @@
 import { StoryFn, Meta } from '@storybook/react'
 import Avatar from './Avatar'
+import { DEFAULT_FALLBACK_AVATAR } from '../../../constants'
 
 export default {
   title: 'Molecules/Avatar',
@@ -11,9 +12,9 @@ const Template: StoryFn<typeof Avatar> = (args) => <Avatar {...args} />
 export const ByAddress = Template.bind({})
 ByAddress.args = {
   address: '0x5B0f3DBdD49614476e4f5fF5Db6fe13d41fCB516',
-  src: 'https://metadata.ens.domains/mainnet/avatar/efp.encrypteddegen.eth',
-  name: 'efp.encrypteddegen.eth',
-  fallback: 'https://efp.app/assets/art/default-avatar.svg',
+  src: 'https://metadata.ens.domains/mainnet/avatar/encrypteddegen.eth',
+  name: 'encrypteddegen.eth',
+  fallback: DEFAULT_FALLBACK_AVATAR,
   style: {
     width: '100px',
     height: '100px',
@@ -24,7 +25,7 @@ export const AvatarFallback = Template.bind({})
 AvatarFallback.args = {
   address: '0xBA47418cd3bD9214250d251b6aF4DaFD14C5d0D6',
   src: 'invalid link',
-  fallback: 'https://efp.app/assets/art/default-avatar.svg',
+  fallback: DEFAULT_FALLBACK_AVATAR,
   style: {
     width: '100px',
     height: '100px',
